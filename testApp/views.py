@@ -1,7 +1,9 @@
-from django.shortcuts import render
-
+from django.shortcuts import render,redirect
+import io
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
+
+from django.contrib.auth import logout
 
 def index(request):
     return HttpResponse('this is testapp index')
@@ -26,3 +28,12 @@ def add(request):
     stuadd = TestStudent.addStu("name",1,12,"scont",grade,"2018-9-1","2018-9-1")
     stuadd.save()
     return render(request, 'testApp/add.html', {"students":stuadd})
+
+def redir(request):
+    # stuList = TestStudent.objects.all()
+    return HttpResponseRedirect('testApp/stu.html')
+
+def verifyImg(request):
+    buf = io.BytesIO()
+    # im.save(buf,'png')
+    return HttpResponse(buf.getvalue(),'img/png')
